@@ -49,6 +49,7 @@ function showProducts(products) {
 function updateCart() {
     let list = document.querySelector('.itemsList');
     let count = document.querySelector('.itemsCount');
+    let total = 0;
 
     let code = `<thead>
                     <tr class="text-center align-middle">
@@ -65,6 +66,8 @@ function updateCart() {
 
     for (let i = 0; i < cartItems.length; i++) {
         let p = cartItems[i];
+        let currentPrice = p.count * calcDiscountPrice(p.price, p.discountPercentage);
+        total += currentPrice
         code += `<tr class="text-center align-middle">
                     <th scope="row">${i + 1}</th>
                     <td><img src="${p.thumbnail}" class="img-thumbnail" alt="${p.title}" style="width: 70px; height: 70px; object-fit: cover;"></td>
@@ -73,11 +76,20 @@ function updateCart() {
                     <td><button class="btn btn-sm" type="button" onclick="increaseCount(${i})"><i class="fa-solid fa-chevron-up fa-xxs"></i></button>
                     ${p.count}
                     <button class="btn btn-sm" type="button" onclick="decreaseCount(${i})"><i class="fa-solid fa-chevron-down fa-xxs"></i></button></td>
-                    <td>${p.count * calcDiscountPrice(p.price, p.discountPercentage)}</td>
+                    <td>${currentPrice}</td>
                     <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteItem(${i})">X</button></td>
                 </tr>`;
     }
-    code += `</tbody>`;
+    code += `</tbody>
+            <tfoot>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Total</th>
+                <th scope="col">$ ${total}</th>
+            </tfoot>`;
 
     list.innerHTML = code;
     count.innerHTML = cartItems.length;
