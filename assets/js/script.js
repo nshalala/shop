@@ -21,6 +21,7 @@ function showProducts(products) {
     let code = '';
 
     products.forEach(product => {
+        console.log(showRate(product.rating));
         code += `<div class="col-8 col-md-4 col-xl-3">
                     <div class="card shadow-lg border-success-subtle border-2"  style="height: 500px">
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
@@ -130,10 +131,10 @@ function showRate(rate) {
     let empty = 5 - filled;
     let code = '';
     for (let i = 0; i < filled; i++) {
-        code += `<div class="bi-star-fill"></div>`
+        code += `<i class="fa-solid fa-star" style="color: #ffd500;"></i>`
     }
     for (let i = 0; i < empty; i++) {
-        code += `<div class="bi-star"></div>`
+        code += `<i class="fa-regular fa-star" style="color: #ffd500;"></i>`
     }
     return code;
 }
